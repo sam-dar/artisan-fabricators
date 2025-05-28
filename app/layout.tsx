@@ -5,6 +5,10 @@ import FloatingWhatsAppButton from "@/components/whatsappme";
 export const metadata: Metadata = {
   title: "Artisan",
   description: "corian fabricators",
+    icons: {
+    icon: "/favicon.png", // or "/favicon.png" if using PNG
+  },
+
 };
 
 export default function RootLayout({

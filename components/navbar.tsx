@@ -1,89 +1,65 @@
-"use client";
-
+import {  MapPin, ArrowRight } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
-import {
-  ShoppingCartIcon,
-  Bars3Icon,
-  XMarkIcon,
-} from "@heroicons/react/24/outline";
-import { useCartStore } from "@/store/cart-store";
-import { useEffect, useState } from "react";
-import { Button } from "./ui/button";
-export const Navbar = () => {
-  const [mobileOpen, setMobileOpen] = useState<boolean>(false);
-  const { items } = useCartStore();
-  const cartCount = items.reduce((acc, item) => acc + item.quantity, 0);
 
-  useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth >= 768) {
-        setMobileOpen(false);
-      }
-    };
 
-    window.addEventListener("resize", handleResize);
-
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
+export default function Navbar() {
   return (
-    <nav className="sticky top-0 z-50 bg-white shadow">
-      <div className="container mx-auto flex items-center justify-between px-4 py-4">
-        <Link href="/" className="hover:text-blue-600">
-          My Ecommerce
-        </Link>
-        <div className="hidden md:flex space-x-6">
-          <Link href="/">Home</Link>
-          <Link href="/products" className="hover:text-blue-600">
-            Products
-          </Link>
-          <Link href="/checkout" className="hover:text-blue-600">
-            Checkout
-          </Link>
+    <header className="px-4 sm:px-8 md:px-16 lg:px-24 py-4 bg-[#2E3440] text-white">
+      <nav className="flex items-center justify-between bg-gray-200 text-[#2E3440] px-6 sm:px-12 py-4 rounded-md shadow-md">
+        {/* Logo */}
+        <div className="flex-shrink-0">
+          <Image
+            src="/gallery/logo.jpg"
+            alt="Logo"
+            width={160}
+            height={160}
+            priority
+            className="rounded-md"
+          />
         </div>
-        <div className="flex items-center space-x-4">
-          <Link href="/checkout" className="relative">
-            <ShoppingCartIcon className="h-6 w-6" />
-            {cartCount > 0 && (
-              <span className="absolute -top-2 -right-2 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-xs text-white">
-                {cartCount}
-              </span>
-            )}
-          </Link>
-          <Button
-            variant="ghost"
-            className="md:hidden"
-            onClick={() => setMobileOpen((prev) => !prev)}
-          >
-            {mobileOpen ? (
-              <XMarkIcon className="h-6 w-6" />
-            ) : (
-              <Bars3Icon className="h-6 w-6" />
-            )}
-          </Button>
+
+        {/* Address */}
+        <div className="flex flex-col justify-center text-sm sm:text-base font-medium px-6 border-l border-gray-400 mx-4">
+          <div className="flex items-start gap-2 bg-[#4C566A] text-white px-3 py-2 rounded-md">
+            <MapPin className="w-5 h-5 text-white" />
+            <span className="max-w-[300px] leading-tight">
+              Ghazi Road, Defence, Near Total Petrol Pump, Shahid Town, Lahore Cantt
+            </span>
+          </div>
         </div>
-      </div>
-      {mobileOpen && (
-        <nav className="md:hidden bg-white shadow-md">
-          <ul className="flex flex-col p-4 space-y-2">
-            <li>
-              <Link href="/" className="block hover:text-blue-600">
-                Home
-              </Link>
-            </li>
-            <li>
-              <Link href="/products" className="block hover:text-blue-600">
-                Products
-              </Link>
-            </li>
-            <li>
-              <Link href="/checkout" className="block hover:text-blue-600">
-                Checkout
-              </Link>
-            </li>
-          </ul>
-        </nav>
-      )}
-    </nav>
+
+        {/* Navigation Links & Button */}
+            <ul className="hidden md:flex items-center gap-8 font-medium text-xl">
+      {[
+        { label: "Home", href: "/" },
+        { label: "About Us", href: "/about" },
+        { label: "Portfolio", href: "/products" },
+        { label: "Contact Us", href: "/contact" },
+      ].map((item, idx) => (
+        <li
+          key={idx}
+          className="relative group cursor-pointer transition duration-300 ease-in-out"
+        >
+          <Link href={item.href}>
+            <span className="group-hover:text-[#4C566A] transition duration-300">
+              {item.label}
+            </span>
+          </Link>
+          <span className="absolute left-0 bottom-0 w-0 h-[2px] bg-[#4C566A] group-hover:w-full transition-all duration-300"></span>
+        </li>
+      ))}
+
+      {/* Make an Order Button */}
+      <li>
+        <button className="flex items-center gap-2 bg-[#4C566A] hover:bg-[#434C5E] transition duration-300 px-4 py-2 rounded text-white font-semibold text-sm sm:text-base cursor-pointer">
+          MAKE AN ORDER
+          <ArrowRight className="w-4 h-4" />
+        </button>
+      </li>
+    </ul>
+
+      </nav>
+    </header>
   );
-};
+}

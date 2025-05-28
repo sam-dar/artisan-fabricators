@@ -1,5 +1,5 @@
 {
-  "name": "ecom-tut",
+  "name": "Artisan",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -14,11 +14,15 @@
     "@tailwindcss/postcss": "^4.0.13",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "framer-motion": "^12.14.0",
     "lucide-react": "^0.479.0",
     "next": "15.2.2",
     "postcss": "^8.5.3",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-icons": "^5.5.0",
+    "react-slick": "^0.30.3",
+    "slick-carousel": "^1.8.1",
     "stripe": "^17.7.0",
     "tailwind-merge": "^3.0.2",
     "tailwindcss": "^4.0.13",
@@ -30,6 +34,7 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@types/react-slick": "^0.23.13",
     "eslint": "^9",
     "eslint-config-next": "15.2.2",
     "typescript": "^5"

@@ -1,50 +1,69 @@
-import Image from "next/image";
-import { stripe } from "@/lib/stripe";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Carousel } from "@/components/carousel";
+import Footer from "@/components/footer";
+import AboutSection from "@/components/about_section";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import TestimonialsSection from "@/components/testimonial";
+import CoreValuesSection from "@/components/values_section";
 
-export default async function Home() {
-  const products = await stripe.products.list({
-    expand: ["data.default_price"],
-    limit: 5,
-  });
+const galleryImages = [
+  "/gallery/car1.jpg",
+  "/gallery/car2.jpg",
+  "/gallery/car3.jpg",
+  "/gallery/car4.jpg",
+  "/gallery/car5.jpg",
+  "/gallery/car6.jpg",
+  "/gallery/car7.jpg",
+  "/gallery/car8.jpg",
+];
 
+export default function Home() {
   return (
     <div>
-      <section className="rounded bg-neutral-100 py-8 sm:py-12">
-        <div className="mx-auto grid grid-cols-1 items-center justify-items-center gap-8 px-8 sm:px-16 md:grid-cols-2">
-          <div className="max-w-md space-y-4">
-            <h2 className="text-3xl font-bold tracking-tight md:text-4xl">
-              Welcome to My Ecommerce
-            </h2>
-            <p className="text-neutral-600">
-              Discover the latest products at the best prices.
-            </p>
-            <Button
-              asChild
-              variant="default"
-              className="inline-flex items-center justify-center rounded-full px-6 py-3 bg-black text-white"
-            >
-              <Link
-                href="/products"
-                className="inline-flex items-center justify-center rounded-full px-6 py-3"
-              >
-                Browse All Products
-              </Link>
-            </Button>
-          </div>
-          <Image
-            alt="Hero Image"
-            src={products.data[0].images[0]}
-            className="rounded"
-            width={450}
-            height={450}
-          />
+      {/* HERO SECTION WITH BACKGROUND CAROUSEL */}
+      <section className="container mx-auto px-4 relative h-[80vh] overflow-hidden">
+        {/* Background Carousel */}
+        <div className="absolute inset-0 z-0">
+          <Carousel images={galleryImages} />
+        </div>
+
+        {/* Overlay Content */}
+        <div className="relative z-10 h-full w-full flex flex-col items-center justify-center text-center px-6 bg-black/50">
+          <h1 className="text-4xl md:text-5xl font-extrabold text-white mb-4">
+            Artisan Fabricators
+          </h1>
+          <h2 className="text-xl md:text-2xl font-medium text-white italic mb-4">
+            Crafting Imagination in Corian
+          </h2>
+          <p className="max-w-2xl text-white mb-6">
+            At Artisan Fabricators, we bring your ideas to life with precision
+            and elegance. From luxurious vanities to stunning bathtubs, seamless
+            countertops to custom niches — we shape Corian into masterpieces for
+            every space.
+          </p>
+          <Button
+            asChild
+            variant="default"
+            className="px-6 py-3 rounded-full bg-white text-black hover:bg-gray-200 transition"
+          >
+            <Link href="/gallery">View Our Work</Link>
+          </Button>
         </div>
       </section>
-      <section className="py-8">
-        <Carousel products={products.data} />
+      <div className="py-4">
+        <AboutSection />
+      </div>
+      <div className="container mx-auto px-4 py-4">
+        <TestimonialsSection />
+      </div>
+      <div className="py-4">
+        <CoreValuesSection />
+      </div>
+
+      <section className=" relative py-5 ">
+        <Footer />
       </section>
     </div>
   );

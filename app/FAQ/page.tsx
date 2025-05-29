@@ -24,7 +24,7 @@ export default function FAQPage() {
             Do you work with designers, architects, or contractors?
           </AccordionTrigger>
           <AccordionContent className="px-4 pt-2 pb-4 text-gray-600">
-            Absolutely! We frequently collaborate with industry professionals to bring their custom designs to life. We're happy to work with sketches, blueprints, or CAD files.
+            Absolutely! We frequently collaborate with industry professionals to bring their custom designs to life. We&apos;re happy to work with sketches, blueprints, or CAD files.
           </AccordionContent>
         </AccordionItem>
 

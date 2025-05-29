@@ -1,7 +1,9 @@
+"use client"
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Carousel } from "@/components/carousel";
-import Footer from "@/components/footer";
+// import Footer from "@/components/footer";
 import AboutSection from "@/components/about_section";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -17,9 +19,23 @@ const galleryImages = [
   "/gallery/car6.jpg",
   "/gallery/car7.jpg",
   "/gallery/car8.jpg",
+  "/gallery/car9.jpg",
+  "/gallery/car10.jpg",
+  "/gallery/car11.jpg",
 ];
 
 export default function Home() {
+  const [showScrollTop, setShowScrollTop] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowScrollTop(window.scrollY > 200);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
     <div>
       {/* HERO SECTION WITH BACKGROUND CAROUSEL */}
@@ -48,23 +64,31 @@ export default function Home() {
             variant="default"
             className="px-6 py-3 rounded-full bg-white text-black hover:bg-gray-200 transition"
           >
-            <Link href="/gallery">View Our Work</Link>
+            <Link href="/products">View Our Work</Link>
           </Button>
         </div>
       </section>
+
       <div className="py-4">
         <AboutSection />
       </div>
+
       <div className="container mx-auto px-4 py-4">
         <TestimonialsSection />
       </div>
+
       <div className="py-4">
         <CoreValuesSection />
       </div>
 
-      <section className=" relative py-5 ">
-        <Footer />
-      </section>
+      {showScrollTop && (
+        <button
+          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          className="fixed bottom-6 right-6 px-4 py-2 bg-[#2E3440] text-white rounded-full shadow-md hover:bg-[#4C566A] transition"
+        >
+          ↑ Top
+        </button>
+      )}
     </div>
   );
 }

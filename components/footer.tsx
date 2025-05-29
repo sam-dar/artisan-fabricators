@@ -40,8 +40,8 @@ export default function Footer() {
             {[
               { label: "Home", href: "/" },
               { label: "About Us", href: "/about" },
-              { label: "Portfolio", href: "#" },
-              { label: "Contact Us", href: "#" },
+              { label: "Portfolio", href: "/products" },
+              { label: "FAQs", href: "/FAQ" },
             ].map((link) => (
               <li
                 key={link.label}

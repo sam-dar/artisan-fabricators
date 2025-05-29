@@ -3,7 +3,10 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   /* config options here */
   images: {
-    // domains: ["files.stripe.com"],
+    domains: ['artisan-fabricators-store.vercel-storage.com',
+            'asekennujuh1tygo.public.blob.vercel-storage.com' // <-- add this line
+
+    ],
   },
 };
 

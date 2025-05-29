@@ -1,65 +1,107 @@
-import {  MapPin, ArrowRight } from "lucide-react";
+"use client";
+
+import { useState } from "react";
+import { Menu, X, MapPin, Phone, ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-
+import { useRouter } from "next/navigation";
 
 export default function Navbar() {
+  const [isOpen, setIsOpen] = useState(false);
+  const router = useRouter();
+
   return (
-    <header className="px-4 sm:px-8 md:px-16 lg:px-24 py-4 bg-[#2E3440] text-white">
-      <nav className="flex items-center justify-between bg-gray-200 text-[#2E3440] px-6 sm:px-12 py-4 rounded-md shadow-md">
+    <header className="text-[#2E3440] font-medium">
+      {/* Top Bar */}
+      <div className="bg-[#2E3440] text-white text-sm px-6 py-2 flex flex-col sm:flex-row sm:justify-between items-center gap-2">
+        <div className="flex items-center gap-2">
+          <MapPin className="w-4 h-4" />
+          <span>
+            Ghazi Road, Defence, Near Total Petrol Pump, Shahid Town, Lahore
+            Cantt
+          </span>
+        </div>
+        <div className="flex items-center gap-2">
+          <Phone className="w-4 h-4" />
+          <span> +92 300 4645620</span>
+        </div>
+      </div>
+
+      {/* Main Nav */}
+      <nav className="bg-gray-200 shadow-md px-6 py-4 flex items-center justify-between">
         {/* Logo */}
-        <div className="flex-shrink-0">
+        <Link href="/">
           <Image
             src="/gallery/logo.jpg"
-            alt="Logo"
+            alt="Al-Ahmad Logo"
             width={160}
-            height={160}
-            priority
+            height={100}
             className="rounded-md"
+            priority
           />
-        </div>
+        </Link>
 
-        {/* Address */}
-        <div className="flex flex-col justify-center text-sm sm:text-base font-medium px-6 border-l border-gray-400 mx-4">
-          <div className="flex items-start gap-2 bg-[#4C566A] text-white px-3 py-2 rounded-md">
-            <MapPin className="w-5 h-5 text-white" />
-            <span className="max-w-[300px] leading-tight">
-              Ghazi Road, Defence, Near Total Petrol Pump, Shahid Town, Lahore Cantt
-            </span>
-          </div>
-        </div>
-
-        {/* Navigation Links & Button */}
-            <ul className="hidden md:flex items-center gap-8 font-medium text-xl">
-      {[
-        { label: "Home", href: "/" },
-        { label: "About Us", href: "/about" },
-        { label: "Portfolio", href: "/products" },
-        { label: "Contact Us", href: "/contact" },
-      ].map((item, idx) => (
-        <li
-          key={idx}
-          className="relative group cursor-pointer transition duration-300 ease-in-out"
+        {/* Desktop Links */}
+        <ul className="hidden md:flex items-center gap-10 text-3xl">
+          {[
+            { label: "Home", href: "/" },
+            { label: "About Us", href: "/about" },
+            { label: "Portfolio", href: "/products" },
+            { label: "FAQs", href: "/FAQ" },
+          ].map((item, idx) => (
+            <li key={idx} className="group relative">
+              <Link href={item.href}>
+                <span className="group-hover:text-[#B49B5E] transition">
+                  {item.label}
+                </span>
+              </Link>
+              <span className="absolute left-0 bottom-0 w-0 h-[2px] bg-[#B49B5E] group-hover:w-full transition-all duration-300"></span>
+            </li>
+          ))}
+        </ul>
+        <div
+          className="hidden md:flex bg-[#2E3440] hover:bg-[#A48D53] text-white mt-20 mr-20 px-4 py-2 text-base font-semibold items-center gap-2 cursor-pointer transition"
+          onClick={() => router.push("/contactus")}
         >
-          <Link href={item.href}>
-            <span className="group-hover:text-[#4C566A] transition duration-300">
-              {item.label}
-            </span>
-          </Link>
-          <span className="absolute left-0 bottom-0 w-0 h-[2px] bg-[#4C566A] group-hover:w-full transition-all duration-300"></span>
-        </li>
-      ))}
-
-      {/* Make an Order Button */}
-      <li>
-        <button className="flex items-center gap-2 bg-[#4C566A] hover:bg-[#434C5E] transition duration-300 px-4 py-2 rounded text-white font-semibold text-sm sm:text-base cursor-pointer">
           MAKE AN ORDER
           <ArrowRight className="w-4 h-4" />
-        </button>
-      </li>
-    </ul>
+        </div>
 
+        {/* Mobile Menu Button */}
+        <div className="md:hidden">
+          <button onClick={() => setIsOpen(!isOpen)}>
+            {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          </button>
+        </div>
       </nav>
+
+      {/* Mobile Menu Drawer */}
+      {isOpen && (
+        <div className="md:hidden bg-gray-200 px-6 py-4 space-y-4 text-lg">
+          {[
+            { label: "Home", href: "/" },
+            { label: "About Us", href: "/about" },
+            { label: "Portfolio", href: "/products" },
+            { label: "FAQs", href: "/FAQ" },
+          ].map((item, idx) => (
+            <Link
+              key={idx}
+              href={item.href}
+              className="block hover:text-[#B49B5E] transition"
+              onClick={() => setIsOpen(false)}
+            >
+              {item.label}
+            </Link>
+          ))}
+
+          <button
+            className="w-full flex justify-center bg-[#B49B5E] hover:bg-[#A48D53] text-white py-2 rounded font-semibold transition"
+            onClick={() => router.push("/contactus")}
+          >
+            MAKE AN ORDER
+          </button>
+        </div>
+      )}
     </header>
   );
 }
